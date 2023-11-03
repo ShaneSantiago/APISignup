@@ -1,13 +1,12 @@
+require("dotenv").config(); // Certifique-se de chamar isso antes de mongoose.connect
+
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(
-    "mongodb+srv://APIDB:shane5799@cluster0.twqgvso.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("Conexão com o banco de dados estabelecida com sucesso");
   })
