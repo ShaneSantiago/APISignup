@@ -21,6 +21,17 @@ const PetSchema = new mongoose.Schema({
   age: {
     type: String,
   },
+  gender: {
+    type: String,
+  },
+  typePet: {
+    type: String,
+  },
+  photos: [{ type: String }], // Novo campo para armazenar as fotos
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

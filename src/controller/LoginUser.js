@@ -43,8 +43,12 @@ router.post("/login", async (req, res) => {
       message: "Login bem-sucedido",
       token: token,
       userData: {
+        id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
+        city: user.city,
+        pets: user.pets,
       },
     });
   } catch (error) {

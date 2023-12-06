@@ -6,9 +6,13 @@ const Pet = require("../models/Pet");
 
 const UserModel = require("../models/User");
 
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 router.post("/create", async (req, res) => {
   try {
-    const { name, owner, age, race, description } = req.body;
+    const { name, owner, age, race, description, gender, typePet, photos } =
+      req.body;
 
     const pet = await Pet.create({
       name,
@@ -16,6 +20,9 @@ router.post("/create", async (req, res) => {
       age,
       race,
       description,
+      gender,
+      typePet,
+      photos,
     });
 
     const user = await UserModel.findById(owner);

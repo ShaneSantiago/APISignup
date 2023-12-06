@@ -35,6 +35,32 @@ const UserSchema = new mongoose.Schema({
       ref: "Pet",
     },
   ],
+  sentMessages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
+  receivedMessages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
+  conversations: [
+    {
+      recipient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      messages: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Message",
+        },
+      ],
+    },
+  ],
 });
 
 // Pré-processo para criptografar a senha antes de salvar o usuário

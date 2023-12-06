@@ -1,31 +1,15 @@
-// users.js
 const express = require("express");
+const router = express.Router();
 const UserModel = require("../models/User");
-const userRouter = express.Router();
+const PetModel = require("../models/Pet");
 
-// Rota para buscar todos os usuários
-userRouter.get("/users", async (req, res) => {
-  try {
-    const users = await UserModel.find();
-    res.json({
-      error: false,
-      data: users,
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: true,
-      message: "Erro ao buscar usuários",
-    });
-  }
-});
-
-// Rota para obter informações de um usuário específico
-userRouter.get("/users/:userId", async (req, res) => {
+// Rota para obter todos os pets de um usuário por ID
+router.get("/user/:userId/pets", async (req, res) => {
   try {
     const userId = req.params.userId;
 
+    // Verifica se o usuário existe
     const user = await UserModel.findById(userId);
-
     if (!user) {
       return res.status(404).json({
         error: true,
@@ -33,9 +17,13 @@ userRouter.get("/users/:userId", async (req, res) => {
       });
     }
 
+    // Obtém todos os pets do usuário
+    const pets = await PetModel.find({ owner: userId });
+
     return res.json({
       error: false,
-      data: user,
+      message: "Pets do usuário recuperados com sucesso",
+      pets: pets,
     });
   } catch (error) {
     console.error(error);
@@ -46,4 +34,4 @@ userRouter.get("/users/:userId", async (req, res) => {
   }
 });
 
-module.exports = userRouter;
+module.exports = router;
