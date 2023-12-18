@@ -6,7 +6,7 @@ const User = require("../models/User"); // Certifique-se de ajustar o caminho co
 // Rota para editar o nome ou email do usuário
 router.put("/user/:userId", async (req, res) => {
   const { userId } = req.params;
-  const { name, email } = req.body;
+  const { name, email, phone } = req.body;
 
   try {
     // Verifique se o usuário existe
@@ -18,6 +18,7 @@ router.put("/user/:userId", async (req, res) => {
     // Atualize os campos necessários
     if (name) user.name = name;
     if (email) user.email = email;
+    if (phone) user.phone = phone;
 
     // Salve as alterações no banco de dados
     await user.save();
